@@ -1,0 +1,243 @@
+{
+  "info": {
+    "_postman_id": "d75848aa-1253-47e1-a220-116f7335f533",
+    "name": "TripGenius API",
+    "description": "REST API requests for TripGenius. Select the appropriate token before calling protected routes. The default admin account is seeded by Database/init.sql.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:4000" },
+    { "key": "token", "value": "" },
+    { "key": "vacationId", "value": "1" }
+  ],
+  "item": [
+    {
+      "name": "Health",
+      "item": [
+        {
+          "name": "Database health",
+          "request": { "method": "GET", "url": "{{baseUrl}}/api/test-db" }
+        }
+      ]
+    },
+    {
+      "name": "Authentication",
+      "item": [
+        {
+          "name": "Register",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"firstName\": \"New\",\n  \"lastName\": \"Traveler\",\n  \"email\": \"{{$randomEmail}}\",\n  \"password\": \"Pass1234\"\n}"
+            },
+            "url": "{{baseUrl}}/api/auth/register"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "if (pm.response.code === 201) {",
+                  "  pm.collectionVariables.set('token', pm.response.json().token);",
+                  "}"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Login as seeded admin",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"admin@tripgenius.com\",\n  \"password\": \"Admin1234!\"\n}"
+            },
+            "url": "{{baseUrl}}/api/auth/login"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Admin login succeeds', () => pm.response.to.have.status(200));",
+                  "if (pm.response.code === 200) {",
+                  "  pm.collectionVariables.set('token', pm.response.json().token);",
+                  "}"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Vacations",
+      "item": [
+        {
+          "name": "List all vacations",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": "{{baseUrl}}/api/vacations?page=1&filter=all"
+          }
+        },
+        {
+          "name": "List liked vacations",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": "{{baseUrl}}/api/vacations?page=1&filter=liked"
+          }
+        },
+        {
+          "name": "List active vacations",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": "{{baseUrl}}/api/vacations?page=1&filter=active"
+          }
+        },
+        {
+          "name": "List upcoming vacations",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": "{{baseUrl}}/api/vacations?page=1&filter=upcoming"
+          }
+        },
+        {
+          "name": "Like vacation",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": "{{baseUrl}}/api/vacations/{{vacationId}}/like"
+          }
+        },
+        {
+          "name": "Unlike vacation",
+          "request": {
+            "method": "DELETE",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": "{{baseUrl}}/api/vacations/{{vacationId}}/like"
+          }
+        },
+        {
+          "name": "Vacation details",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": "{{baseUrl}}/api/vacations/{{vacationId}}"
+          }
+        },
+        {
+          "name": "Vacation image",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/vacations/images/rome.jpg"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Admin",
+      "item": [
+        {
+          "name": "Create vacation (select image in form-data)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                { "key": "destination", "value": "Lisbon", "type": "text" },
+                { "key": "description", "value": "Explore Lisbon.", "type": "text" },
+                { "key": "startDate", "value": "2027-06-01", "type": "text" },
+                { "key": "endDate", "value": "2027-06-08", "type": "text" },
+                { "key": "price", "value": "900", "type": "text" },
+                { "key": "image", "type": "file", "src": "" }
+              ]
+            },
+            "url": "{{baseUrl}}/api/vacations"
+          }
+        },
+        {
+          "name": "Update vacation",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                { "key": "destination", "value": "Lisbon", "type": "text" },
+                { "key": "description", "value": "Updated description.", "type": "text" },
+                { "key": "startDate", "value": "2027-06-01", "type": "text" },
+                { "key": "endDate", "value": "2027-06-08", "type": "text" },
+                { "key": "price", "value": "950", "type": "text" }
+              ]
+            },
+            "url": "{{baseUrl}}/api/vacations/{{vacationId}}"
+          }
+        },
+        {
+          "name": "Delete vacation",
+          "request": {
+            "method": "DELETE",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": "{{baseUrl}}/api/vacations/{{vacationId}}"
+          }
+        },
+        {
+          "name": "Likes report",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": "{{baseUrl}}/api/vacations/reports/likes"
+          }
+        },
+        {
+          "name": "Download CSV report",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": "{{baseUrl}}/api/vacations/reports/csv"
+          }
+        }
+      ]
+    },
+    {
+      "name": "AI and MCP",
+      "item": [
+        {
+          "name": "Travel recommendation",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": { "mode": "raw", "raw": "{\n  \"destination\": \"Rome\"\n}" },
+            "url": "{{baseUrl}}/api/ai/recommendations"
+          }
+        },
+        {
+          "name": "Ask vacation database using MCP tools",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": { "mode": "raw", "raw": "{\n  \"question\": \"How many vacations are active today?\"\n}" },
+            "url": "{{baseUrl}}/api/mcp/query"
+          }
+        }
+      ]
+    }
+  ]
+}

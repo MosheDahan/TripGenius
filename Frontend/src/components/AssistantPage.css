@@ -1,0 +1,92 @@
+.assistant-page {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem;
+  direction: rtl;
+  color: #334155;
+}
+
+.assistant-page > h1 {
+  margin-bottom: 0.75rem;
+  color: #1e293b;
+}
+
+.assistant-page > p {
+  margin-bottom: 1.5rem;
+  line-height: 1.7;
+}
+
+.assistant-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  max-width: 650px;
+  padding: 1.5rem;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+.assistant-form label {
+  font-weight: 600;
+}
+
+.assistant-form input,
+.assistant-form textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  font: inherit;
+}
+
+.assistant-form textarea {
+  resize: vertical;
+}
+
+.assistant-form button {
+  align-self: flex-start;
+  padding: 0.75rem 1.25rem;
+  border-radius: 6px;
+  background: #0284c7;
+  color: #fff;
+  font-weight: 600;
+}
+
+.assistant-form button:disabled {
+  opacity: 0.65;
+  cursor: wait;
+}
+
+.assistant-answer {
+  margin-top: 1.5rem;
+  padding: 1.25rem 1.5rem;
+  border-right: 4px solid #0284c7;
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+  line-height: 1.8;
+  white-space: pre-wrap;
+}
+
+.assistant-answer h2 {
+  margin-bottom: 0.5rem;
+  color: #1e293b;
+  font-size: 1.1rem;
+}
+
+.assistant-error {
+  margin-top: 1rem;
+  color: #b91c1c;
+}
+
+.about-page h2 {
+  margin: 1.5rem 0 0.5rem;
+  color: #1e293b;
+}
+
+@media (max-width: 600px) {
+  .assistant-page {
+    padding: 1.5rem 1rem;
+  }
+}

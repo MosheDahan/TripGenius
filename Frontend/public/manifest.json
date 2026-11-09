@@ -1,0 +1,16 @@
+{
+  "short_name": "TripGenius",
+  "name": "TripGenius",
+  "icons": [
+    {
+      "src": "tripgenius-icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#1e293b",
+  "background_color": "#1e293b"
+}
