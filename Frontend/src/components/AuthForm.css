@@ -52,6 +52,12 @@
   margin-top: 0.3rem;
 }
 
+.success {
+  color: #15803d;
+  font-size: 0.9rem;
+  margin-top: 0.8rem;
+}
+
 .submit-btn {
   width: 100%;
   padding: 0.75rem;

@@ -72,6 +72,10 @@ export const Login: React.FC = () => {
                     {errors.password && <span className="error">{errors.password.message}</span>}
                 </div>
 
+                <p className="auth-switch">
+                    <Link to="/forgot-password">שכחת סיסמה?</Link>
+                </p>
+
                 {submitError && <p className="error" role="alert">{submitError}</p>}
 
                 <button type="submit" className="submit-btn" disabled={isSubmitting}>

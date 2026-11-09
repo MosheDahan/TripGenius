@@ -3,6 +3,8 @@ class AppConfig {
     public readonly serverUrl = this.apiUrl.replace(/\/api\/?$/, '');
     public readonly registerUrl = `${this.apiUrl}/auth/register`;
     public readonly loginUrl = `${this.apiUrl}/auth/login`;
+    public readonly forgotPasswordUrl = `${this.apiUrl}/auth/forgot-password`;
+    public readonly resetPasswordUrl = `${this.apiUrl}/auth/reset-password`;
     public readonly vacationsUrl = `${this.apiUrl}/vacations`;
     public readonly vacationImagesUrl = `${this.apiUrl}/vacations/images/`;
     public readonly reportsUrl = `${this.apiUrl}/vacations/reports/likes`;

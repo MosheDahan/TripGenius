@@ -7,6 +7,7 @@ import db from './dal/db';
 import authController from './controllers/auth-controller';
 import vacationsController from './controllers/vacations-controller';
 import assistantController from './controllers/assistant-controller';
+import { initializePasswordResetSchema } from './services/auth-service';
 import { getUploadsDirectory } from './utils/storage';
 
 const app = express();
@@ -49,6 +50,13 @@ app.get('/api/test-db', async (req: Request, res: Response) => {
 
 app.use('/api/auth', authController);
 
-app.listen(PORT, () => {
-    console.log(`Server is running on http://localhost:${PORT}`);
-});
+initializePasswordResetSchema()
+    .then(() => {
+        app.listen(PORT, () => {
+            console.log(`Server is running on http://localhost:${PORT}`);
+        });
+    })
+    .catch((error: unknown) => {
+        console.error('Failed to initialize authentication database schema:', error);
+        process.exitCode = 1;
+    });

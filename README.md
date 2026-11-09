@@ -15,14 +15,15 @@
 
 1. העתיקו את `.env.example` לקובץ `.env`.
 2. החליפו את סיסמאות MySQL ואת `JWT_SECRET` בערכים חזקים. הגדירו `REACT_APP_DEVELOPER_NAME` לשם המפתח/ת.
-3. הוסיפו `AI_API_KEY` תקף כדי להפעיל המלצות AI ושאלות MCP. ללא מפתח, שאר המערכת עדיין זמינה.
-4. הריצו:
+3. כדי להפעיל המלצות AI ושאלות MCP ללא תשלום, צרו מפתח ב-[Google AI Studio](https://aistudio.google.com/apikey) והגדירו אותו בשדה `AI_API_KEY` בקובץ `.env`. ברירת המחדל משתמשת ב-Gemini Developer API ובמודל `gemini-3.5-flash-lite`. השאירו את הפרויקט במסלול החינמי ואל תקשרו חשבון חיוב אם אינכם רוצים לשלם; למסלול החינמי יש מכסות וקצב מוגבלים, ובחריגה הבקשות עלולות להיכשל. ללא מפתח, שאר המערכת עדיין זמינה.
+4. כדי לאפשר איפוס סיסמה, הגדירו ב-`.env` את פרטי שרת ה-SMTP שלכם: `SMTP_HOST`, `SMTP_PORT`, `SMTP_SECURE`, `SMTP_USER`, `SMTP_PASS` ו-`EMAIL_FROM`. עבור Gmail אפשר להשתמש ב-`smtp.gmail.com`, ביציאת `465` עם `SMTP_SECURE=true`, וב-App Password (נדרשת הפעלת אימות דו-שלבי בחשבון Google). אל תשתמשו בסיסמת Google הרגילה ואל תשתפו את ה-App Password. ראו את ההנחיות של Google ל-[App Passwords](https://support.google.com/accounts/answer/185833).
+5. הריצו:
 
    ```powershell
    docker compose up -d --build
    ```
 
-5. פתחו את `http://localhost:3000`. ממשק ה-API זמין ב-`http://localhost:4000`.
+6. פתחו את `http://localhost:3000`. ממשק ה-API זמין ב-`http://localhost:4000`.
 
 עצירה: `docker compose down`. הנתונים נשמרים ב-volumes; כדי למחוק גם אותם נדרשת במכוון הפקודה `docker compose down -v`.
 
@@ -34,7 +35,7 @@
 
 1. התקינו תלות והריצו את מסד הנתונים, למשל מתוך תיקיית השורש: `docker compose -f Database/docker-compose.yml up -d`.
 2. העתיקו את `Backend/.env.example` אל `Backend/.env` והגדירו את פרטי החיבור, הסיסמה ואת `JWT_SECRET`. ערכי MySQL חייבים להתאים ל-`.env` שבשורש הפרויקט.
-3. אופציונלית הגדירו גם `AI_API_KEY`, `AI_BASE_URL` ו-`AI_MODEL`.
+3. אופציונלית הגדירו גם `AI_API_KEY`, `AI_BASE_URL` ו-`AI_MODEL`. כדי לאפשר איפוס סיסמה הגדירו גם את הגדרות SMTP כמפורט לעיל.
 4. בטרמינל הראשון: `cd Backend`, ‏`npm ci`, ‏`npm run dev`.
 5. בטרמינל השני: `cd Frontend`, ‏`npm ci`, ‏`npm start`.
 
@@ -48,6 +49,7 @@
 ## יכולות ונתיבי API
 
 - משתמשים: `POST /api/auth/register`, ‏`POST /api/auth/login`.
+- איפוס סיסמה: `POST /api/auth/forgot-password` עם `{ "email": "user@example.com" }` שולח קישור למייל אם החשבון קיים; `POST /api/auth/reset-password` עם `{ "token": "...", "password": "..." }` מאפס את הסיסמה. הקישור חד-פעמי ותוקפו 30 דקות. נדרש SMTP מוגדר.
 - חופשות ולייקים: `GET /api/vacations`, ‏`POST /api/vacations/:id/like`, ‏`DELETE /api/vacations/:id/like`.
 - ניהול חופשות: `POST`, ‏`PUT` ו-`DELETE /api/vacations` (מנהל בלבד; יצירה/עדכון מקבלים `multipart/form-data`).
 - דוחות מנהל: `GET /api/vacations/reports/likes`, ‏`GET /api/vacations/reports/csv`.
@@ -55,7 +57,7 @@
 - שאלה למאגר באמצעות כלי MCP למשתמש מחובר: `POST /api/mcp/query` עם `{ "question": "כמה חופשות פעילות יש כרגע?" }`.
 - תמונות: `GET /api/vacations/images/:imageName`.
 
-המלצות AI ושאלות MCP משתמשות ב-API תואם OpenAI המוגדר בצד השרת. המפתח אינו נחשף לדפדפן. ברירת המחדל היא `https://api.openai.com/v1` והמודל `gpt-4o-mini`; ניתן להגדיר endpoint ומודל אחרים דרך משתני הסביבה.
+המלצות AI ושאלות MCP משתמשות ב-Gemini API דרך ממשק תאימות OpenAI, המוגדר בצד השרת. המפתח אינו נחשף לדפדפן. ברירות המחדל הן `https://generativelanguage.googleapis.com/v1beta/openai` והמודל `gemini-3.5-flash-lite`; ניתן להגדיר endpoint ומודל אחרים דרך משתני הסביבה. הזמינות והמכסות במסלול החינמי תלויות בחשבון ובמדיניות Google ועשויות להשתנות. לפי [תנאי השימוש של Gemini API](https://ai.google.dev/gemini-api/terms), תוכן שנשלח במסלול החינמי עשוי לשמש לשיפור מוצרי Google — אל תשלחו מידע אישי או סודי.
 
 ## בדיקות ובנייה
 
@@ -73,8 +75,7 @@
 
 ## GitHub והגשה
 
-קישור GitHub: **טרם נוצר מאגר. לאחר יצירתו והעלאת הקוד, יש להחליף שורה זו בכתובת המאגר.**
-
+קישור GitHub: https://github.com/MosheDahan/TripGenius
 לפני הגשה:
 
 1. ודאו ששם המפתח/ת הוגדר ב-`.env` ובניית Docker מעודכנת.

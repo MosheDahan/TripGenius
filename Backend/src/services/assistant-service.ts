@@ -60,8 +60,8 @@ function getAiSettings(): { apiKey: string; baseUrl: string; model: string } {
     }
     return {
         apiKey,
-        baseUrl: (process.env.AI_BASE_URL || 'https://api.openai.com/v1').replace(/\/+$/, ''),
-        model: process.env.AI_MODEL || 'gpt-4o-mini'
+        baseUrl: (process.env.AI_BASE_URL || 'https://generativelanguage.googleapis.com/v1beta/openai').replace(/\/+$/, ''),
+        model: process.env.AI_MODEL || 'gemini-3.5-flash-lite'
     };
 }
 

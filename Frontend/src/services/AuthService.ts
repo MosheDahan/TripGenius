@@ -20,6 +20,16 @@ class AuthService {
         return token;
     }
 
+    public async requestPasswordReset(email: string): Promise<string> {
+        const response = await axios.post<{ message: string }>(appConfig.forgotPasswordUrl, { email });
+        return response.data.message;
+    }
+
+    public async resetPassword(token: string, password: string): Promise<string> {
+        const response = await axios.post<{ message: string }>(appConfig.resetPasswordUrl, { token, password });
+        return response.data.message;
+    }
+
     // התנתקות
     public logout(): void {
         localStorage.removeItem('token');
