@@ -3,16 +3,25 @@ import { VacationModel, VacationFilterType } from '../models/VacationModel';
 import { vacationsService } from '../services/VacationsService';
 import { VacationCard } from './VacationCard';
 import { useAuth } from '../context/AuthContext';
+import { useSearchParams } from 'react-router-dom';
 import { notify } from '../utils/Notify';
 import './VacationsList.css';
 
 export const VacationsList: React.FC = () => {
     const { isAdmin } = useAuth();
     const [vacations, setVacations] = useState<VacationModel[]>([]);
-    const [filter, setFilter] = useState<VacationFilterType>('all');
-    const [currentPage, setCurrentPage] = useState<number>(1);
+    const [searchParams, setSearchParams] = useSearchParams();
     const [totalCount, setTotalCount] = useState<number>(0);
     const [isLoading, setIsLoading] = useState<boolean>(true);
+
+    const requestedPage = Number(searchParams.get('page'));
+    const currentPage = Number.isInteger(requestedPage) && requestedPage > 0 ? requestedPage : 1;
+    const requestedFilter = searchParams.get('filter');
+    const filter: VacationFilterType = requestedFilter === 'liked'
+        || requestedFilter === 'active'
+        || requestedFilter === 'upcoming'
+        ? requestedFilter
+        : 'all';
 
     const pageSize = 9;
     const totalPages = Math.ceil(totalCount / pageSize);
@@ -35,8 +44,20 @@ export const VacationsList: React.FC = () => {
     }, [loadVacations]);
 
     const handleFilterChange = (newFilter: VacationFilterType) => {
-        setFilter(newFilter);
-        setCurrentPage(1); // חזרה לעמוד ראשון בעת שינוי סינון
+        setSearchParams(previous => {
+            const next = new URLSearchParams(previous);
+            next.set('filter', newFilter);
+            next.set('page', '1');
+            return next;
+        });
+    };
+
+    const handlePageChange = (page: number) => {
+        setSearchParams(previous => {
+            const next = new URLSearchParams(previous);
+            next.set('page', String(page));
+            return next;
+        });
     };
 
     const handleLikeToggle = async (vacationId: number, currentLiked: boolean) => {
@@ -131,7 +152,7 @@ export const VacationsList: React.FC = () => {
                 <div className="pagination">
                     <button 
                         disabled={currentPage === 1}
-                        onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+                        onClick={() => handlePageChange(Math.max(currentPage - 1, 1))}
                         className="page-btn"
                     >
                         קודם
@@ -141,7 +162,7 @@ export const VacationsList: React.FC = () => {
                         <button
                             key={pageNum}
                             className={`page-btn ${currentPage === pageNum ? 'active' : ''}`}
-                            onClick={() => setCurrentPage(pageNum)}
+                            onClick={() => handlePageChange(pageNum)}
                         >
                             {pageNum}
                         </button>
@@ -149,7 +170,7 @@ export const VacationsList: React.FC = () => {
 
                     <button 
                         disabled={currentPage === totalPages}
-                        onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
+                        onClick={() => handlePageChange(Math.min(currentPage + 1, totalPages))}
                         className="page-btn"
                     >
                         הבא

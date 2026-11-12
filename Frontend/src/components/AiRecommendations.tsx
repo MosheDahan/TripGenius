@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { appConfig } from '../utils/AppConfig';
 import { authService } from '../services/AuthService';
+import { formatAssistantText } from '../utils/formatAssistantText';
 import './AssistantPage.css';
 
 export const AiRecommendations: React.FC = () => {
@@ -55,7 +56,7 @@ export const AiRecommendations: React.FC = () => {
             {recommendation && (
                 <article className="assistant-answer" aria-live="polite">
                     <h2>ההמלצה שלכם</h2>
-                    <p>{recommendation}</p>
+                    <p>{formatAssistantText(recommendation)}</p>
                 </article>
             )}
         </section>

@@ -67,10 +67,12 @@ export async function requestPasswordReset(email: string): Promise<string> {
     await ensurePasswordResetTable();
 
     const [users] = await db.query<RowDataPacket[]>(
-        'SELECT user_id, first_name FROM users WHERE email = ?',
+        'SELECT user_id, first_name, email FROM users WHERE email = ?',
         [normalizedEmail]
     );
-    if (users.length === 0) return resetRequestMessage;
+    if (users.length === 0) {
+        return resetRequestMessage;
+    }
 
     const { transporter, from } = getPasswordResetMailer();
     const userId = Number(users[0].user_id);
@@ -88,7 +90,7 @@ export async function requestPasswordReset(email: string): Promise<string> {
     try {
         await transporter.sendMail({
             from,
-            to: normalizedEmail,
+            to: String(users[0].email),
             subject: 'איפוס סיסמה ל-TripSpark',
             text: `שלום ${String(users[0].first_name)},\n\nלבחירת סיסמה חדשה לחצו על הקישור הבא (בתוקף ל-30 דקות):\n${resetUrl}\n\nאם לא ביקשת לאפס את הסיסמה, אפשר להתעלם מהודעה זו.`
         });

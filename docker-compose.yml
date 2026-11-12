@@ -21,6 +21,7 @@ services:
       - tripspark
 
   tripspark-backend:
+    image: tripspark-backend:latest
     build:
       context: ./Backend
     restart: unless-stopped
@@ -60,6 +61,7 @@ services:
       - tripspark
 
   tripspark-frontend:
+    image: tripspark-frontend:latest
     build:
       context: ./Frontend
       args:

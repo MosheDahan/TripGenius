@@ -56,7 +56,10 @@ export const AddVacation: React.FC = () => {
                     <label>יעד</label>
                     <input 
                         type="text" 
-                        {...register('destination', { required: 'נא להזין יעד' })} 
+                        {...register('destination', {
+                            required: 'נא להזין יעד',
+                            validate: value => (/[\u0590-\u05FF]/u.test(value) && !/[A-Za-z]/.test(value)) || 'יש להזין את שם היעד בעברית'
+                        })}
                     />
                     {errors.destination && <span className="error">{errors.destination.message}</span>}
                 </div>

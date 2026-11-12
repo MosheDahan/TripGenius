@@ -49,15 +49,15 @@ CREATE TABLE IF NOT EXISTS likes (
 
 -- הזנת 12 חופשות ראשוניות
 INSERT INTO vacations (destination, description, start_date, end_date, price, image_name) VALUES
-('Rome', 'Explore the historic Roman Forum, Colosseum, and vibrant street cafes.', '2026-11-01', '2026-11-10', 1250.00, 'rome.jpg'),
-('Rhodes', 'Relax by the crystal clear sea and wander through the medieval Old Town.', '2026-11-05', '2026-11-14', 680.00, 'rhodes.jpg'),
-('Tokyo', 'Discover ancient shrines nestled between futuristic skyscrapers and food markets.', '2026-11-12', '2026-11-22', 2100.00, 'tokyo.jpg'),
-('Paris', 'Stroll along the Seine, visit world-class museums, and enjoy French patisserie.', '2026-11-18', '2026-11-26', 1450.00, 'paris.jpg'),
-('New York', 'Experience Broadway shows, Central Park autumn walks, and iconic skyline views.', '2026-11-25', '2026-12-04', 1850.00, 'newyork.jpg'),
-('Barcelona', 'Marvel at Gaudi architecture and relax along vibrant Mediterranean beachfronts.', '2026-12-01', '2026-12-09', 920.00, 'barcelona.jpg'),
-('London', 'Visit historic palaces, iconic bridges, and world-renowned theater productions.', '2026-12-05', '2026-12-14', 1350.00, 'london.jpg'),
-('Amsterdam', 'Cruise historic canals and tour world-class art collections by bicycle.', '2026-12-10', '2026-12-18', 890.00, 'amsterdam.jpg'),
-('Prague', 'Cross the scenic Charles Bridge and wander the cobblestones of the Old Town.', '2026-12-15', '2026-12-23', 640.00, 'prague.jpg'),
-('Vienna', 'Enjoy imperial palaces, classical concert halls, and traditional coffeehouses.', '2026-12-20', '2026-12-28', 980.00, 'vienna.jpg'),
-('Athens', 'Climb up to the Acropolis and immerse yourself in ancient Mediterranean history.', '2027-01-05', '2027-01-14', 710.00, 'athens.jpg'),
-('Budapest', 'Relax in famous thermal bath houses and admire architecture along the Danube.', '2027-01-12', '2027-01-20', 580.00, 'budapest.jpg');
+('רומא', 'גלו את ההיסטוריה של הפורום הרומי והקולוסיאום, ותיהנו מבתי הקפה התוססים ברחובות.', '2026-11-01', '2026-11-10', 1250.00, 'rome.jpg'),
+('רודוס', 'הירגעו לצד הים הצלול וטיילו בעיר העתיקה מימי הביניים.', '2026-11-05', '2026-11-14', 680.00, 'rhodes.jpg'),
+('טוקיו', 'גלו מקדשים עתיקים בין גורדי שחקים עתידניים ושווקי אוכל.', '2026-11-12', '2026-11-22', 2100.00, 'tokyo.jpg'),
+('פריז', 'טיילו לאורך הסן, בקרו במוזיאונים מובילים ותיהנו ממאפים צרפתיים.', '2026-11-18', '2026-11-26', 1450.00, 'paris.jpg'),
+('ניו יורק', 'חוו מופעי ברודוויי, טיולי סתיו בסנטרל פארק ונופים אייקוניים של קו הרקיע.', '2026-11-25', '2026-12-04', 1850.00, 'newyork.jpg'),
+('ברצלונה', 'התרשמו מהאדריכלות של גאודי והירגעו לאורך חופי הים התיכון התוססים.', '2026-12-01', '2026-12-09', 920.00, 'barcelona.jpg'),
+('לונדון', 'בקרו בארמונות היסטוריים, בגשרים אייקוניים ובהצגות תיאטרון ידועות בעולם.', '2026-12-05', '2026-12-14', 1350.00, 'london.jpg'),
+('אמסטרדם', 'שוטו בתעלות ההיסטוריות וסיירו באוספי אמנות מובילים באופניים.', '2026-12-10', '2026-12-18', 890.00, 'amsterdam.jpg'),
+('פראג', 'חצו את גשר קארל הציורי וטיילו ברחובות המרוצפים של העיר העתיקה.', '2026-12-15', '2026-12-23', 640.00, 'prague.jpg'),
+('וינה', 'תיהנו מארמונות קיסריים, מאולמות קונצרטים קלאסיים ומבתי קפה מסורתיים.', '2026-12-20', '2026-12-28', 980.00, 'vienna.jpg'),
+('אתונה', 'טפסו אל האקרופוליס ושקעו בהיסטוריה העתיקה של אגן הים התיכון.', '2027-01-05', '2027-01-14', 710.00, 'athens.jpg'),
+('בודפשט', 'הירגעו במרחצאות התרמיים המפורסמים והתפעלו מהאדריכלות לאורך הדנובה.', '2027-01-12', '2027-01-20', 580.00, 'budapest.jpg');

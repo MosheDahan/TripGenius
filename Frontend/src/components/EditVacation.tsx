@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { vacationsService } from '../services/VacationsService';
 import { notify } from '../utils/Notify';
 import { appConfig } from '../utils/AppConfig';
@@ -22,6 +22,8 @@ export const EditVacation: React.FC = () => {
     const [existingImage, setExistingImage] = useState<string>('');
     const [imagePreview, setImagePreview] = useState<string | null>(null);
     const navigate = useNavigate();
+    const location = useLocation();
+    const returnToList = { pathname: '/', search: location.search };
 
     const startDateValue = watch('startDate');
 
@@ -62,7 +64,7 @@ export const EditVacation: React.FC = () => {
 
             await vacationsService.updateVacation(vacationId, formData);
             notify.success('החופשה עודכנה בהצלחה!');
-            navigate('/');
+            navigate(returnToList);
         } catch (err: any) {
             notify.error(err);
         }
@@ -77,7 +79,10 @@ export const EditVacation: React.FC = () => {
                     <label>יעד</label>
                     <input 
                         type="text" 
-                        {...register('destination', { required: 'נא להזין יעד' })} 
+                        {...register('destination', {
+                            required: 'נא להזין יעד',
+                            validate: value => (/[\u0590-\u05FF]/u.test(value) && !/[A-Za-z]/.test(value)) || 'יש להזין את שם היעד בעברית'
+                        })}
                     />
                     {errors.destination && <span className="error">{errors.destination.message}</span>}
                 </div>
@@ -149,7 +154,7 @@ export const EditVacation: React.FC = () => {
 
                 <div className="form-buttons">
                     <button type="submit" className="save-btn">עדכן חופשה</button>
-                    <button type="button" className="cancel-btn" onClick={() => navigate('/')}>ביטול</button>
+                    <button type="button" className="cancel-btn" onClick={() => navigate(returnToList)}>ביטול</button>
                 </div>
             </form>
         </div>

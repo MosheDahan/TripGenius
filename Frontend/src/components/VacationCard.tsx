@@ -2,7 +2,7 @@ import React from 'react';
 import { VacationModel } from '../models/VacationModel';
 import { appConfig } from '../utils/AppConfig';
 import { useAuth } from '../context/AuthContext';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import './VacationCard.css';
 
 interface VacationCardProps {
@@ -14,6 +14,7 @@ interface VacationCardProps {
 export const VacationCard: React.FC<VacationCardProps> = ({ vacation, onLikeToggle, onDelete }) => {
     const { isAdmin } = useAuth();
     const navigate = useNavigate();
+    const location = useLocation();
 
     // עיצוב תאריך נוח לקריאה (DD/MM/YYYY)
     const formatDate = (dateStr: string) => {
@@ -39,7 +40,7 @@ export const VacationCard: React.FC<VacationCardProps> = ({ vacation, onLikeTogg
                         <button
                             className="edit-btn"
                             title="ערוך חופשה"
-                            onClick={() => navigate(`/edit-vacation/${vacation.vacationId}`)}
+                            onClick={() => navigate(`/edit-vacation/${vacation.vacationId}${location.search}`)}
                         >
                             ✏️
                         </button>

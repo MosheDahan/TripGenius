@@ -102,8 +102,8 @@ async function requestCompletion(
 function createVacationMcpServer(): McpServer {
     const server = new McpServer({ name: 'tripspark-vacations', version: '1.0.0' });
     const europeanDestinations = [
-        'Amsterdam', 'Athens', 'Barcelona', 'Budapest', 'London',
-        'Paris', 'Prague', 'Rhodes', 'Rome', 'Vienna'
+        'אמסטרדם', 'אתונה', 'ברצלונה', 'בודפשט', 'לונדון',
+        'ונציה', 'וינה', 'סלוניקי, יוון', 'פריז', 'פראג', 'רודוס', 'רומא'
     ];
 
     server.tool(
@@ -139,14 +139,17 @@ function createVacationMcpServer(): McpServer {
         'List upcoming vacations in European destinations included in the catalog.',
         {},
         async () => {
-            const placeholders = europeanDestinations.map(() => '?').join(', ');
+            const destinationConditions = europeanDestinations
+                .map(() => '(destination = ? OR destination LIKE ?)')
+                .join(' OR ');
+            const destinationParams = europeanDestinations.flatMap(destination => [destination, `${destination},%`]);
             const [rows] = await db.query<RowDataPacket[]>(
                 `SELECT destination, description, DATE_FORMAT(start_date, '%Y-%m-%d') AS startDate,
                         DATE_FORMAT(end_date, '%Y-%m-%d') AS endDate, price
                  FROM vacations
-                 WHERE start_date > CURRENT_DATE() AND destination IN (${placeholders})
+                 WHERE start_date > CURRENT_DATE() AND (${destinationConditions})
                  ORDER BY start_date ASC`,
-                europeanDestinations
+                destinationParams
             );
             return { content: [{ type: 'text', text: JSON.stringify(rows) }] };
         }
@@ -207,7 +210,7 @@ export async function getTravelRecommendation(destination: string): Promise<stri
     const message = await requestCompletion([
         {
             role: 'system',
-            content: 'You are a practical travel guide. Reply in Hebrew with a concise, useful recommendation for the requested destination. Do not invent current opening hours or prices.'
+            content: 'You are a practical travel guide. Reply in Hebrew with a concise, useful recommendation for the requested destination. Write city names in Hebrew, even if the request uses another language. Do not invent current opening hours or prices.'
         },
         { role: 'user', content: `המלץ על טיול ליעד: ${normalizedDestination}` }
     ]);

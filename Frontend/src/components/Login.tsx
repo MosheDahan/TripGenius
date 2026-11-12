@@ -7,11 +7,12 @@ import { useAuth } from '../context/AuthContext';
 import './AuthForm.css';
 
 export const Login: React.FC = () => {
-    const { register, handleSubmit, formState: { errors } } = useForm<CredentialsModel>();
+    const { register, handleSubmit, watch, formState: { errors } } = useForm<CredentialsModel>();
     const { login } = useAuth();
     const navigate = useNavigate();
     const [submitError, setSubmitError] = React.useState<string | null>(null);
     const [isSubmitting, setIsSubmitting] = React.useState(false);
+    const email = watch('email');
 
     const onSubmit = async (data: CredentialsModel) => {
         setSubmitError(null);
@@ -72,15 +73,20 @@ export const Login: React.FC = () => {
                     {errors.password && <span className="error">{errors.password.message}</span>}
                 </div>
 
-                <p className="auth-switch">
-                    <Link to="/forgot-password">שכחת סיסמה?</Link>
-                </p>
-
                 {submitError && <p className="error" role="alert">{submitError}</p>}
 
                 <button type="submit" className="submit-btn" disabled={isSubmitting}>
                     {isSubmitting ? 'מתחבר...' : 'התחבר'}
                 </button>
+
+                <p className="auth-switch">
+                    <Link
+                        to="/forgot-password"
+                        state={{ email: email?.trim() || '' }}
+                    >
+                        שכחת סיסמה?
+                    </Link>
+                </p>
 
                 <p className="auth-switch">
                     עדיין אין לך חשבון? <Link to="/register">הרשם כאן</Link>

@@ -8,12 +8,25 @@ import {
 } from '../services/auth-service';
 
 const router = Router();
-const passwordResetLimiter = rateLimit({
+const resetPasswordLimiter = rateLimit({
     windowMs: 15 * 60 * 1000,
     limit: 5,
     standardHeaders: 'draft-8',
     legacyHeaders: false,
     message: { message: 'בוצעו יותר מדי ניסיונות. נסה שוב בעוד 15 דקות.' }
+});
+const resetRequestLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000,
+    limit: 3,
+    standardHeaders: 'draft-8',
+    legacyHeaders: false,
+    keyGenerator: req => {
+        const email = typeof req.body?.email === 'string'
+            ? req.body.email.trim().toLowerCase()
+            : '';
+        return email || 'invalid-email';
+    },
+    message: { message: 'בוצעו יותר מדי בקשות עבור כתובת זו. נסה שוב בעוד 15 דקות.' }
 });
 
 // POST /api/auth/register
@@ -64,7 +77,7 @@ router.post('/login', async (req: Request, res: Response) => {
     }
 });
 
-router.post('/forgot-password', passwordResetLimiter, async (req: Request, res: Response) => {
+router.post('/forgot-password', resetRequestLimiter, async (req: Request, res: Response) => {
     try {
         const { email } = req.body;
         if (typeof email !== 'string' || !email.trim()) {
@@ -79,11 +92,11 @@ router.post('/forgot-password', passwordResetLimiter, async (req: Request, res: 
             return;
         }
         console.error('Password reset request failed:', err);
-        res.status(500).json({ message: 'לא ניתן לשלוח קישור לאיפוס כרגע. נסה שוב מאוחר יותר.' });
+        res.status(500).json({ message: 'לא ניתן לשלוח קישור לאיפוס כרגע. בדוק את הגדרות הדואר ונסה שוב מאוחר יותר.' });
     }
 });
 
-router.post('/reset-password', passwordResetLimiter, async (req: Request, res: Response) => {
+router.post('/reset-password', resetPasswordLimiter, async (req: Request, res: Response) => {
     try {
         const { token, password } = req.body;
         if (typeof token !== 'string' || typeof password !== 'string') {

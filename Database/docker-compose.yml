@@ -2,6 +2,7 @@ name: tripspark-database
 
 services:
   tripspark-db:
+    container_name: tripspark-db
     image: mysql:8.0
     restart: unless-stopped
     environment:

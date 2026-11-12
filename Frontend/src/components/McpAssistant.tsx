@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { appConfig } from '../utils/AppConfig';
 import { authService } from '../services/AuthService';
+import { formatAssistantText } from '../utils/formatAssistantText';
 import './AssistantPage.css';
 
 interface ConversationEntry {
@@ -62,7 +63,7 @@ export const McpAssistant: React.FC = () => {
                 {conversation.map((entry, index) => (
                     <article className="assistant-answer" key={`${index}-${entry.question}`}>
                         <h2>{entry.question}</h2>
-                        <p>{entry.answer}</p>
+                        <p>{formatAssistantText(entry.answer)}</p>
                     </article>
                 ))}
             </div>

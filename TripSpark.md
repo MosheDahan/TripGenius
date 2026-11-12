@@ -25,6 +25,8 @@
 
 6. פתחו את `http://localhost:3000`. ממשק ה-API זמין ב-`http://localhost:4000`.
 
+Compose בונה את תמונות היישום בשם `tripspark-backend:latest` ו־`tripspark-frontend:latest`. בהרצה של מסד הנתונים בלבד, שם הקונטיינר הוא `tripspark-db`; תמונת MySQL נשארת `mysql:8.0`.
+
 עצירה: `docker compose down`. הנתונים נשמרים ב-volumes; כדי למחוק גם אותם נדרשת במכוון הפקודה `docker compose down -v`.
 
 > קובץ `Database/init.sql` רץ רק באתחול הראשון של volume מסד הנתונים. כדי לאתחל מחדש, יש לייצא תחילה מידע שחשוב לשמור.
@@ -54,7 +56,7 @@
 - חופשות ולייקים: `GET /api/vacations`, ‏`POST /api/vacations/:id/like`, ‏`DELETE /api/vacations/:id/like`.
 - ניהול חופשות: `POST`, ‏`PUT` ו-`DELETE /api/vacations` (מנהל בלבד; יצירה/עדכון מקבלים `multipart/form-data`).
 - דוחות מנהל: `GET /api/vacations/reports/likes`, ‏`GET /api/vacations/reports/csv`.
-- המלצה למשתמש מחובר: `POST /api/ai/recommendations` עם `{ "destination": "Rome" }`.
+- המלצה למשתמש מחובר: `POST /api/ai/recommendations` עם `{ "destination": "רומא" }`.
 - שאלה למאגר באמצעות כלי MCP למשתמש מחובר: `POST /api/mcp/query` עם `{ "question": "כמה חופשות פעילות יש כרגע?" }`.
 - תמונות: `GET /api/vacations/images/:imageName`.
 
