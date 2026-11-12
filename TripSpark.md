@@ -1,4 +1,4 @@
-# TripGenius
+# TripSpark
 
 מערכת Full Stack לניהול חופשות: הרשמה והתחברות, תפקידים והרשאות, חיפוש וסינון חופשות, לייקים, ממשק מנהל, דוחות, המלצות AI ושאלות על מאגר החופשות באמצעות MCP.
 
@@ -28,6 +28,7 @@
 עצירה: `docker compose down`. הנתונים נשמרים ב-volumes; כדי למחוק גם אותם נדרשת במכוון הפקודה `docker compose down -v`.
 
 > קובץ `Database/init.sql` רץ רק באתחול הראשון של volume מסד הנתונים. כדי לאתחל מחדש, יש לייצא תחילה מידע שחשוב לשמור.
+> שם פרויקט Docker ומסד הנתונים שונו ל-TripSpark. התקנה קודמת משתמשת ב-volumes ובמסד בשם הישן; Docker לא מעביר אותם אוטומטית. לפני שדרוג התקנה קיימת, גבו וייבאו את הנתונים למסד החדש. ה-volumes הישנים נשארים קיימים, ואל תריצו `docker compose down -v` אלא אם רוצים למחוק את הנתונים.
 
 ## הרצה מקומית ללא Docker
 
@@ -41,7 +42,7 @@
 
 ## חשבון מנהל ראשוני
 
-- אימייל: `admin@tripgenius.com`
+- אימייל: `admin@tripspark.com`
 - סיסמה: `Admin1234!`
 
 החשבון נוצר על ידי נתוני האתחול של מסד הנתונים. אין להשתמש בסיסמת ברירת המחדל בסביבת Production.
@@ -75,12 +76,12 @@
 
 ## GitHub והגשה
 
-קישור GitHub: https://github.com/MosheDahan/TripGenius
+קישור GitHub: https://github.com/MosheDahan/TripSpark
 לפני הגשה:
 
 1. ודאו ששם המפתח/ת הוגדר ב-`.env` ובניית Docker מעודכנת.
 2. העלו את הקוד ל-GitHub ועדכנו כאן את כתובת המאגר.
-3. צרפו `Database/export.sql` עדכני ואת `Backend/postman/TripGenius.postman_collection.json`.
+3. צרפו `Database/export.sql` עדכני ואת `Backend/postman/TripSpark.postman_collection.json`.
 4. צרו ZIP אחד עם שם התיקייה הנדרש, ללא `node_modules`, קובצי `.env`, תיקיות `build`/`dist` או סודות:
 
    ```powershell

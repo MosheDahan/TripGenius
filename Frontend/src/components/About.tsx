@@ -3,9 +3,9 @@ import './AssistantPage.css';
 
 export const About: React.FC = () => (
     <section className="assistant-page about-page" aria-labelledby="about-title">
-        <h1 id="about-title">אודות TripGenius</h1>
+        <h1 id="about-title">אודות TripSpark</h1>
         <p>
-            TripGenius היא מערכת לתכנון ולניהול חופשות. אפשר למצוא יעדים, לעקוב אחרי חופשות,
+            TripSpark היא מערכת לתכנון ולניהול חופשות. אפשר למצוא יעדים, לעקוב אחרי חופשות,
             לשמור יעדים שאהבתם ולקבל רעיונות והמלצות לטיול.
         </p>
         <h2>על הפרויקט</h2>

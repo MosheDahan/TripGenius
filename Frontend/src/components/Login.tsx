@@ -41,7 +41,7 @@ export const Login: React.FC = () => {
     return (
         <div className="auth-container">
             <form className="auth-card" onSubmit={handleSubmit(onSubmit)}>
-                <h2>התחברות ל-TripGenius</h2>
+                <h2>התחברות ל-TripSpark</h2>
 
                 <div className="form-group">
                     <label>Email</label>

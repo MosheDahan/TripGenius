@@ -2,7 +2,7 @@ $ErrorActionPreference = 'Stop'
 
 $projectRoot = Split-Path -Parent $PSScriptRoot
 $outputPath = Join-Path $PSScriptRoot 'export.sql'
-$dump = & docker compose --project-directory $projectRoot exec -T db sh -c 'MYSQL_PWD="$MYSQL_ROOT_PASSWORD" mysqldump --default-character-set=utf8mb4 -uroot --databases "$MYSQL_DATABASE" --no-tablespaces'
+$dump = & docker compose --project-directory $projectRoot exec -T tripspark-db sh -c 'MYSQL_PWD="$MYSQL_ROOT_PASSWORD" mysqldump --default-character-set=utf8mb4 -uroot --databases "$MYSQL_DATABASE" --no-tablespaces'
 $exitCode = $LASTEXITCODE
 
 if ($exitCode -ne 0) {

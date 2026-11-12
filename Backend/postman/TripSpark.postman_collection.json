@@ -1,8 +1,8 @@
 {
   "info": {
     "_postman_id": "d75848aa-1253-47e1-a220-116f7335f533",
-    "name": "TripGenius API",
-    "description": "REST API requests for TripGenius. Select the appropriate token before calling protected routes. The default admin account is seeded by Database/init.sql.",
+    "name": "TripSpark API",
+    "description": "REST API requests for TripSpark. Select the appropriate token before calling protected routes. The default admin account is seeded by Database/init.sql.",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "variable": [
@@ -55,7 +55,7 @@
             "header": [{ "key": "Content-Type", "value": "application/json" }],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"email\": \"admin@tripgenius.com\",\n  \"password\": \"Admin1234!\"\n}"
+              "raw": "{\n  \"email\": \"admin@tripspark.com\",\n  \"password\": \"Admin1234!\"\n}"
             },
             "url": "{{baseUrl}}/api/auth/login"
           },

@@ -1,6 +1,6 @@
-# TripGenius Backend
+# TripSpark Backend
 
-Express REST API written in TypeScript. For complete setup, environment variables, Docker, API routes, and submission steps, see the project [README](../README.md).
+Express REST API written in TypeScript. For complete setup, environment variables, Docker, API routes, and submission steps, see the project [README](../TripSpark.md).
 
 ## Local development
 
@@ -9,4 +9,4 @@ Express REST API written in TypeScript. For complete setup, environment variable
 3. Run `npm ci`.
 4. Run `npm run dev`, or `npm run build` followed by `npm start`.
 
-The Postman collection is in `postman/TripGenius.postman_collection.json`.
+The Postman collection is in `postman/TripSpark.postman_collection.json`.

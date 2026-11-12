@@ -100,7 +100,7 @@ async function requestCompletion(
 }
 
 function createVacationMcpServer(): McpServer {
-    const server = new McpServer({ name: 'tripgenius-vacations', version: '1.0.0' });
+    const server = new McpServer({ name: 'tripspark-vacations', version: '1.0.0' });
     const europeanDestinations = [
         'Amsterdam', 'Athens', 'Barcelona', 'Budapest', 'London',
         'Paris', 'Prague', 'Rhodes', 'Rome', 'Vienna'
@@ -187,7 +187,7 @@ function createVacationMcpServer(): McpServer {
 
 async function withMcpClient<T>(action: (client: Client) => Promise<T>): Promise<T> {
     const server = createVacationMcpServer();
-    const client = new Client({ name: 'tripgenius-assistant', version: '1.0.0' });
+    const client = new Client({ name: 'tripspark-assistant', version: '1.0.0' });
     const [clientTransport, serverTransport] = InMemoryTransport.createLinkedPair();
     try {
         await server.connect(serverTransport);
@@ -236,7 +236,7 @@ export async function answerVacationQuestion(question: string): Promise<string> 
         const messages: ChatMessage[] = [
             {
                 role: 'system',
-                content: 'Answer in Hebrew using only facts returned by the available TripGenius MCP tools. Call the relevant tool before answering questions about the catalog. Never claim access to data the tools did not return. If the catalog cannot answer a question, say so.'
+                content: 'Answer in Hebrew using only facts returned by the available TripSpark MCP tools. Call the relevant tool before answering questions about the catalog. Never claim access to data the tools did not return. If the catalog cannot answer a question, say so.'
             },
             { role: 'user', content: normalizedQuestion }
         ];

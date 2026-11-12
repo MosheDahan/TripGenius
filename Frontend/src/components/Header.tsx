@@ -15,7 +15,7 @@ export const Header: React.FC = () => {
     return (
         <header className="header">
             <div className="header-logo">
-                <Link to="/">🌍 TripGenius</Link>
+                <Link to="/">🌍 TripSpark</Link>
             </div>
             <nav className="header-nav">
                 <Link to="/about" className="nav-link">אודות</Link>

@@ -55,7 +55,7 @@ function getPasswordResetMailer(): { transporter: nodemailer.Transporter; from: 
             secure: process.env.SMTP_SECURE === 'true' || port === 465,
             auth: { user, pass }
         }),
-        from: `"TripGenius" <${from}>`
+        from: `"TripSpark" <${from}>`
     };
 }
 
@@ -89,7 +89,7 @@ export async function requestPasswordReset(email: string): Promise<string> {
         await transporter.sendMail({
             from,
             to: normalizedEmail,
-            subject: 'איפוס סיסמה ל-TripGenius',
+            subject: 'איפוס סיסמה ל-TripSpark',
             text: `שלום ${String(users[0].first_name)},\n\nלבחירת סיסמה חדשה לחצו על הקישור הבא (בתוקף ל-30 דקות):\n${resetUrl}\n\nאם לא ביקשת לאפס את הסיסמה, אפשר להתעלם מהודעה זו.`
         });
     } catch (error: unknown) {

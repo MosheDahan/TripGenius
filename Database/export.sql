@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 8.0.46, for Linux (x86_64)
 --
--- Host: localhost    Database: tripgenius_db
+-- Host: localhost    Database: tripspark_db
 -- ------------------------------------------------------
 -- Server version	8.0.46
 
@@ -16,12 +16,12 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Current Database: `tripgenius_db`
+-- Current Database: `tripspark_db`
 --
 
-CREATE DATABASE /*!32312 IF NOT EXISTS*/ `tripgenius_db` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+CREATE DATABASE /*!32312 IF NOT EXISTS*/ `tripspark_db` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
 
-USE `tripgenius_db`;
+USE `tripspark_db`;
 
 --
 -- Table structure for table `likes`
@@ -89,7 +89,7 @@ CREATE TABLE `password_reset_tokens` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'TripGenius','Admin','admin@tripgenius.com','$2b$10$J0jBB6dSEjtG.xRNgrs6p.sehmb8ecpIYWyHuPN/t2Z2kFhyFDcIe','Admin');
+INSERT INTO `users` VALUES (1,'TripSpark','Admin','admin@tripspark.com','$2b$10$J0jBB6dSEjtG.xRNgrs6p.sehmb8ecpIYWyHuPN/t2Z2kFhyFDcIe','Admin');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 

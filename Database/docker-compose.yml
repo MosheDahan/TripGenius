@@ -1,12 +1,14 @@
+name: tripspark-database
+
 services:
-  tripgenius-db:
+  tripspark-db:
     image: mysql:8.0
     restart: unless-stopped
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-root_password}
-      MYSQL_DATABASE: ${MYSQL_DATABASE:-tripgenius_db}
-      MYSQL_USER: ${MYSQL_USER:-tripgenius_user}
-      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-tripgenius_password}
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-tripspark_db}
+      MYSQL_USER: ${MYSQL_USER:-tripspark_user}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-tripspark_password}
     ports:
       - "3308:3306"
     volumes:

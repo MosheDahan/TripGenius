@@ -20,9 +20,9 @@ CREATE TABLE IF NOT EXISTS password_reset_tokens (
 
 INSERT IGNORE INTO users (first_name, last_name, email, password, role)
 VALUES (
-    'TripGenius',
+    'TripSpark',
     'Admin',
-    'admin@tripgenius.com',
+    'admin@tripspark.com',
     '$2b$10$J0jBB6dSEjtG.xRNgrs6p.sehmb8ecpIYWyHuPN/t2Z2kFhyFDcIe',
     'Admin'
 );

@@ -1,9 +1,9 @@
 {
-  "short_name": "TripGenius",
-  "name": "TripGenius",
+  "short_name": "TripSpark",
+  "name": "TripSpark",
   "icons": [
     {
-      "src": "tripgenius-icon.svg",
+      "src": "tripspark-icon.svg",
       "sizes": "any",
       "type": "image/svg+xml",
       "purpose": "any"

@@ -8,7 +8,7 @@ $ErrorActionPreference = 'Stop'
 $StudentName = $StudentName.Trim()
 $projectRoot = $PSScriptRoot
 $outputPath = Join-Path (Split-Path -Parent $projectRoot) "$StudentName.zip"
-$stagingRoot = Join-Path $env:TEMP "TripGenius-submission-$([guid]::NewGuid().ToString('N'))"
+$stagingRoot = Join-Path $env:TEMP "TripSpark-submission-$([guid]::NewGuid().ToString('N'))"
 $stagingProject = Join-Path $stagingRoot $StudentName
 
 New-Item -ItemType Directory -Path $stagingProject -Force | Out-Null
