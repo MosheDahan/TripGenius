@@ -31,10 +31,14 @@ class Notify {
     private translateError(message: string): string {
         const lower = message.toLowerCase();
 
+        const existingImage = message.match(/^An image named "(.+)" already exists\./i);
+        if (existingImage) {
+            return `הקובץ "${existingImage[1]}" כבר קיים בתיקיית התמונות. בחר קובץ בשם אחר.`;
+        }
         if (lower.includes('incorrect email or password')) {
             return 'כתובת האימייל או הסיסמה שגויים';
         }
-        if (lower.includes('already registered') || lower.includes('already exists')) {
+        if (lower.includes('already registered')) {
             return 'כתובת האימייל כבר קיימת במערכת';
         }
         if (lower.includes('network error')) {

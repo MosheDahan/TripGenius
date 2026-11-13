@@ -8,16 +8,6 @@ CREATE TABLE IF NOT EXISTS users (
     role ENUM('User', 'Admin') DEFAULT 'User'
 );
 
-CREATE TABLE IF NOT EXISTS password_reset_tokens (
-    token_hash CHAR(64) PRIMARY KEY,
-    user_id INT NOT NULL,
-    expires_at DATETIME NOT NULL,
-    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    INDEX idx_password_reset_user_id (user_id),
-    CONSTRAINT fk_password_reset_user
-        FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
-);
-
 INSERT IGNORE INTO users (first_name, last_name, email, password, role)
 VALUES (
     'TripSpark',

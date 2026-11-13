@@ -24,9 +24,6 @@ function validateVacation(vacation: IVacation, allowPastStartDate: boolean): voi
     if (!destination?.trim() || !description?.trim() || !startDate || !endDate || !imageName) {
         throw new Error('All fields are required');
     }
-    if (!/[\u0590-\u05FF]/u.test(destination) || /[A-Za-z]/.test(destination)) {
-        throw new Error('שם היעד חייב להיות בעברית');
-    }
     if (!Number.isFinite(price) || price < 0 || price > 10000) {
         throw new Error('Price must be between 0 and 10,000');
     }

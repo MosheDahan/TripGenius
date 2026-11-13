@@ -12,6 +12,8 @@ services:
     volumes:
       - mysql_data:/var/lib/mysql
       - ./Database/init.sql:/docker-entrypoint-initdb.d/001-init.sql:ro
+    ports:
+      - "127.0.0.1:3309:3306"
     healthcheck:
       test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-uroot", "-p${MYSQL_ROOT_PASSWORD}"]
       interval: 5s
@@ -37,18 +39,10 @@ services:
       AI_API_KEY: ${AI_API_KEY:-}
       AI_BASE_URL: ${AI_BASE_URL:-https://generativelanguage.googleapis.com/v1beta/openai}
       AI_MODEL: ${AI_MODEL:-gemini-3.5-flash-lite}
-      FRONTEND_URL: ${FRONTEND_URL:-http://localhost:3000}
-      SMTP_HOST: ${SMTP_HOST:-smtp.gmail.com}
-      SMTP_PORT: ${SMTP_PORT:-465}
-      SMTP_SECURE: ${SMTP_SECURE:-true}
-      SMTP_USER: ${SMTP_USER:-}
-      SMTP_PASS: ${SMTP_PASS:-}
-      EMAIL_FROM: ${EMAIL_FROM:-}
-      UPLOADS_DIR: /app/uploads
     ports:
       - "${BACKEND_PORT:-4000}:4000"
     volumes:
-      - vacation_uploads:/app/uploads
+      - ./Backend/src/assets/images:/app/src/assets/images
     depends_on:
       tripspark-db:
         condition: service_healthy
@@ -78,7 +72,6 @@ services:
 
 volumes:
   mysql_data:
-  vacation_uploads:
 
 networks:
   tripspark:

@@ -12,7 +12,6 @@ ENV NODE_ENV=production
 COPY package*.json ./
 RUN npm ci --omit=dev
 COPY --from=build /app/dist ./dist
-COPY --from=build /app/src/assets/images ./uploads
-ENV UPLOADS_DIR=/app/uploads
+COPY --from=build /app/src/assets/images ./src/assets/images
 EXPOSE 4000
 CMD ["node", "dist/app.js"]

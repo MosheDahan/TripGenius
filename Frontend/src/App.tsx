@@ -3,8 +3,6 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { Header } from './components/Header';
 import { Login } from './components/Login';
 import { Register } from './components/Register';
-import { ForgotPassword } from './components/ForgotPassword';
-import { ResetPassword } from './components/ResetPassword';
 import { ProtectedRoute } from './components/ProtectedRoute';
 import { VacationsList } from './components/VacationsList';
 import { AddVacation } from './components/AddVacation';
@@ -23,8 +21,6 @@ function App() {
           <Routes>
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
-            <Route path="/forgot-password" element={<ForgotPassword />} />
-            <Route path="/reset-password" element={<ResetPassword />} />
             <Route path="/about" element={<About />} />
             
             {/* מסך חופשות ראשי - לכל משתמש מחובר */}

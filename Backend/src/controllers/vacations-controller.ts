@@ -1,6 +1,6 @@
 import { Router, Response } from 'express';
 import multer from 'multer';
-import { v4 as uuidv4 } from 'uuid';
+import path from 'path';
 import { AuthRequest, verifyToken, verifyAdmin, verifyUser } from '../middlewares/auth-middleware';
 import * as vacationsService from '../services/vacations-service';
 import { VacationFilter } from '../models/vacation-model';
@@ -26,8 +26,20 @@ const storage = multer.diskStorage({
             'image/webp': '.webp',
             'image/gif': '.gif'
         };
-        const uniqueName = `${uuidv4()}${extensions[file.mimetype]}`;
-        cb(null, uniqueName);
+        const originalName = path.basename(file.originalname.replace(/\\/g, '/'));
+        const baseName = path.parse(originalName).name
+            .normalize('NFC')
+            .replace(/[^\p{L}\p{N}._-]+/gu, '-')
+            .replace(/^[._-]+|[._-]+$/g, '') || 'vacation';
+        const extension = extensions[file.mimetype];
+        const uploadsDirectory = getUploadsDirectory();
+        let imageName = `${baseName}${extension}`;
+        let suffix = 2;
+        while (fs.existsSync(path.join(uploadsDirectory, imageName))) {
+            imageName = `${baseName}-${suffix}${extension}`;
+            suffix++;
+        }
+        cb(null, imageName);
     }
 });
 const allowedImageTypes = new Set(['image/jpeg', 'image/png', 'image/webp', 'image/gif']);
